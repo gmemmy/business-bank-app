@@ -1,21 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import * as Font from 'expo-font'
+import { Navigator } from './src/navigation/'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [fontLoaded, setFontLoaded] = useState(false)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(() => {
+    Font.loadAsync({
+      'MavenProRegular': require('./assets/fonts/MavenPro-Regular.ttf'),
+      'MavenProMedium': require('./assets/fonts/MavenPro-Medium.ttf'),
+      'MavenProSemiBold': require('./assets/fonts/MavenPro-SemiBold.ttf'),
+      'MavenProBold': require('./assets/fonts/MavenPro-Bold.ttf'),
+    }).then(() => setFontLoaded(true))
+
+    return () => {
+      setFontLoaded(false)
+    }
+  }, [])
+
+  if (!fontLoaded) {
+    return <View />
+  }
+  return (
+    <Navigator />
+  )
+}
