@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { View } from 'react-native';
 import * as Font from 'expo-font'
-import { Navigator } from './src/navigation/'
+import { Navigator, TabNavigator } from './src/navigation/'
+import Store from './src/context/store'
+import rootReducer from './src/reducers'
+import initialState from './src/reducers/initialState'
+import getActions from './src/actions/'
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false)
+  const [state, dispatch] = useReducer(rootReducer, initialState)
 
   useEffect(() => {
     Font.loadAsync({
@@ -24,6 +29,8 @@ export default function App() {
     return <View />
   }
   return (
-    <Navigator />
+    <Store.Provider value={{ ...state, ...getActions(dispatch) }}>
+      {state.user.isAuthenticated ? <TabNavigator /> :  <Navigator />}
+    </Store.Provider>
   )
 }

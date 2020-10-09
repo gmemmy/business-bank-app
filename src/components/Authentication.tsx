@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import {
   View,
   Text,
@@ -10,6 +10,7 @@ import {
   Platform,
 } from 'react-native'
 import { getHeight, getWidth, fontFamily } from '../utils/styles'
+import store from '../context/store'
 
 // Components
 import Button from '../components/Button'
@@ -19,8 +20,13 @@ import colors from '../utils/colors'
 const backButton = require('../../assets/icons/back.png')
 const facebook = require('../../assets/icons/facebook.png')
 const google = require('../../assets/icons/google.png')
+const unchecked = require('../../assets/icons/check-circle.png')
+const checked = require('../../assets/icons/check-mark.png')
 
 const Authentication = ({ type, navigation, children }: any) => {
+  const [rememberMe, setRememberMe] = useState(false)
+
+  const context = useContext<any>(store)
   return (
     <View style={styles.container}>
       <KeyboardAvoidingView
@@ -46,21 +52,29 @@ const Authentication = ({ type, navigation, children }: any) => {
             <Button
               borderColor={colors.GRAY}
               height={40}
-              onPress={() => navigation.navigate('RegisterScreen')}
+              onPress={() => context.setIsAuthenticated(true)}
               color={colors.WHITE}
               icon={facebook}
             />
             <Button
               borderColor={colors.GRAY}
               height={40}
-              onPress={() => navigation.navigate('LogInScreen')}
+              onPress={() => context.setIsAuthenticated(true)}
               color={colors.WHITE}
               icon={google}
             />
           </View>
           <View style={styles.textInputContainer}>{children}</View>
           <View style={styles.forgotPasswordContainer}>
-            <Text>Remember me</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <TouchableOpacity onPress={() => setRememberMe(!rememberMe)}>
+                <Image
+                  style={styles.checkBox}
+                  source={rememberMe ? checked : unchecked}
+                />
+              </TouchableOpacity>
+              <Text style={{ marginLeft: getWidth(5) }}>Remember me</Text>
+            </View>
             {type === 'login' && (
               <TouchableOpacity>
                 <Text style={styles.forgotPassword}>Forgot password?</Text>
@@ -73,7 +87,7 @@ const Authentication = ({ type, navigation, children }: any) => {
               height={48}
               borderRadius={10}
               width={327}
-              onPress={() => navigation.navigate('RegisterScreen')}
+              onPress={() => context.setIsAuthenticated(true)}
               color={colors.BLUE}
               text={type == 'register' ? 'Signup' : 'Login'}
             />
@@ -175,6 +189,11 @@ const styles = StyleSheet.create({
     color: colors.BLUE,
     fontSize: getHeight(13),
     fontFamily: fontFamily.FONT_FAMILY_SEMI_BOLD,
+  },
+  checkBox: {
+    height: getHeight(20),
+    width: getWidth(20),
+    resizeMode: 'contain',
   },
 })
 

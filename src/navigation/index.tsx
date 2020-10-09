@@ -7,7 +7,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Register from '../screens/Authentication/SignUp'
 import Login from '../screens/Authentication/Login'
 
+// Bottom Tab Screens
+import HomeScreen from './home'
+
 const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
 export const Navigator = () => {
   return (
@@ -16,6 +20,27 @@ export const Navigator = () => {
         <Stack.Screen name="RegisterScreen" component={Register} />
         <Stack.Screen name="LogInScreen" component={Login} />
       </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
+export const TabNavigator = () => {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator tabBarOptions={{ showLabel: false }}>
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          // options={{
+          //   tabBarIcon: ({ focused }) =>
+          //     focused ? (
+          //       <Image source={activeHomeIcon} style={styles.icon} />
+          //     ) : (
+          //       <Image source={homeIcon} style={styles.icon} />
+          //     ),
+          // }}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }
