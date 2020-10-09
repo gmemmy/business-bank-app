@@ -55,6 +55,8 @@ const Authentication = ({ type, navigation, children }: any) => {
               onPress={() => context.setIsAuthenticated(true)}
               color={colors.WHITE}
               icon={facebook}
+              text="Facebook"
+              textColor={colors.NAVY_BLUE}
             />
             <Button
               borderColor={colors.GRAY}
@@ -62,6 +64,8 @@ const Authentication = ({ type, navigation, children }: any) => {
               onPress={() => context.setIsAuthenticated(true)}
               color={colors.WHITE}
               icon={google}
+              text="Google"
+              textColor={colors.NAVY_BLUE}
             />
           </View>
           <View style={styles.textInputContainer}>{children}</View>

@@ -28,4 +28,7 @@ interface ButtonProp {
   color?: string
   borderRadius?: number
   borderColor?: string
+  textColor?: string
+  fontSize?: number
+  fontType?: string
 }

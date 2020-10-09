@@ -3,6 +3,7 @@ import { Image, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { getHeight, getWidth } from '../utils/styles'
 
 // Screens
 import Register from '../screens/Authentication/SignUp'
@@ -10,7 +11,7 @@ import Login from '../screens/Authentication/Login'
 
 // Bottom Tab Screens
 import HomeScreen from './home'
-import { getHeight, getWidth } from '../utils/styles'
+import WalletScreen from './wallet'
 
 // Tab Icons
 const homeActive = require('../../assets/icons/tab/home-active.png')
@@ -80,7 +81,7 @@ export const TabNavigator = () => {
         />
         <Tab.Screen
           name="Wallet"
-          component={HomeScreen}
+          component={WalletScreen}
           options={{
             tabBarIcon: ({ focused }) =>
               focused ? (
