@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  AsyncStorage,
 } from 'react-native'
 import { getHeight, getWidth, fontFamily } from '../utils/styles'
 import store from '../context/store'
@@ -25,6 +26,12 @@ const checked = require('../../assets/icons/check-mark.png')
 
 const Authentication = ({ type, navigation, children }: any) => {
   const [rememberMe, setRememberMe] = useState(false)
+
+  const handleRememberMe = async (value: boolean) => {
+    if (value === true) {
+      await AsyncStorage.setItem('authenticated', JSON.stringify(rememberMe))
+    }
+  }
 
   const context = useContext<any>(store)
   return (
@@ -91,7 +98,10 @@ const Authentication = ({ type, navigation, children }: any) => {
               height={48}
               borderRadius={10}
               width={327}
-              onPress={() => context.setIsAuthenticated(true)}
+              onPress={() => {
+                context.setIsAuthenticated(true)
+                rememberMe && handleRememberMe(rememberMe)
+              }}
               color={colors.BLUE}
               text={type == 'register' ? 'Signup' : 'Login'}
             />

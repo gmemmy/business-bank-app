@@ -1,10 +1,17 @@
 import React, { useContext } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  AsyncStorage,
+} from 'react-native'
 import colors from '../utils/colors'
 import { fontFamily, getHeight, getWidth } from '../utils/styles'
 import store from '../context/store'
 
-const Header = ({ text, icon, textColor, iconStyle, type }: any) => {
+const Header = ({ text, icon, textColor, iconStyle, type, children }: any) => {
   const context = useContext<any>(store)
   return (
     <View style={styles.container}>
@@ -15,7 +22,10 @@ const Header = ({ text, icon, textColor, iconStyle, type }: any) => {
       </Text>
       {type === 'logout' ? (
         <TouchableOpacity
-          onPress={() => context.setIsAuthenticated(false)}
+          onPress={() => {
+            AsyncStorage.removeItem('authenticated')
+            context.setIsAuthenticated(false)
+          }}
           style={styles.logoutButton}
         >
           <Text style={styles.logoutText}>Logout</Text>
@@ -25,6 +35,7 @@ const Header = ({ text, icon, textColor, iconStyle, type }: any) => {
           <Image style={[iconStyle ? iconStyle : styles.icon]} source={icon} />
         </TouchableOpacity>
       )}
+      {children && children}
     </View>
   )
 }

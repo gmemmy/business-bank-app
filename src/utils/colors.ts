@@ -6,6 +6,7 @@ const colors = {
   SKY_BLUE: '#DFE7F5',
   RED: '#EE5A55',
   LIGHT_GRAY: '#F8F9F9',
+  BLACK: '#000',
 }
 
 export default colors

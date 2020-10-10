@@ -31,4 +31,5 @@ interface ButtonProp {
   textColor?: string
   fontSize?: number
   fontType?: string
+  disabled?: boolean
 }

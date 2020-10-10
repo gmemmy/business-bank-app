@@ -13,6 +13,7 @@ import Login from '../screens/Authentication/Login'
 import HomeScreen from './home'
 import WalletScreen from './wallet'
 import ProfileScreen from './profile'
+import SendMoneyScreen from './sendMoney'
 
 // Tab Icons
 const homeActive = require('../../assets/icons/tab/home-active.png')
@@ -44,7 +45,9 @@ export const Navigator = () => {
 export const TabNavigator = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator tabBarOptions={{ showLabel: true }}>
+      <Tab.Navigator
+        tabBarOptions={{ showLabel: true, keyboardHidesTabBar: true }}
+      >
         <Tab.Screen
           name="Home"
           component={HomeScreen}
@@ -70,8 +73,8 @@ export const TabNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="Plus"
-          component={HomeScreen}
+          name="SendMoney"
+          component={SendMoneyScreen}
           options={{
             tabBarIcon: ({ focused }) =>
               focused ? (

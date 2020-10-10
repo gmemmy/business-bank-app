@@ -1,5 +1,12 @@
 import React from 'react'
-import { TouchableOpacity, Image, Text, StyleSheet, View } from 'react-native'
+import {
+  TouchableOpacity,
+  Image,
+  Text,
+  StyleSheet,
+  View,
+  TouchableNativeFeedback,
+} from 'react-native'
 import colors from '../../utils/colors'
 import { fontFamily, getHeight, getWidth } from '../../utils/styles'
 
@@ -15,10 +22,12 @@ const Button = ({
   textColor,
   fontSize,
   fontType,
+  disabled,
 }: ButtonProp) => {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={disabled}
       style={[
         {
           backgroundColor: color ? color : colors.BLUE,

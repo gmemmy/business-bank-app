@@ -17,7 +17,7 @@ const send = require('../../../assets/icons/send.png')
 // Images
 const budget = require('../../../assets/budget.png')
 
-const Home = ({ navigation }: ScreenProp) => {
+const Home = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <View style={styles.upperHalf}>
@@ -32,7 +32,7 @@ const Home = ({ navigation }: ScreenProp) => {
             color={colors.SKY_BLUE}
             borderColor={colors.SKY_BLUE}
             textColor={colors.BLUE}
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => navigation.navigate('SendMoney')}
             fontSize={14}
             fontType={fontFamily.FONT_FAMILY_SEMI_BOLD}
           />
@@ -42,7 +42,7 @@ const Home = ({ navigation }: ScreenProp) => {
             color={colors.SKY_BLUE}
             borderColor={colors.SKY_BLUE}
             textColor={colors.BLUE}
-            onPress={() => navigation.navigate('Expenses')}
+            onPress={() => navigation.navigate('Wallet')}
             fontSize={14}
             fontType={fontFamily.FONT_FAMILY_SEMI_BOLD}
           />

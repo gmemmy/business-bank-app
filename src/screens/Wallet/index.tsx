@@ -66,7 +66,7 @@ const contactList = [
   },
 ]
 
-const Wallet = () => {
+const Wallet = ({ navigation }: any) => {
   return (
     <>
       <View style={{ paddingHorizontal: getWidth(20) }}>
@@ -124,7 +124,9 @@ const Wallet = () => {
               }}
               data={contactList}
               renderItem={({ item }) => (
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('SendMoney')}
+                >
                   <ContactCard contact={item} />
                 </TouchableOpacity>
               )}
