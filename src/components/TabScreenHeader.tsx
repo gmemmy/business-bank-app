@@ -20,7 +20,7 @@ const Header = ({ text, icon, textColor, iconStyle }: any) => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: getHeight(70),
+    marginTop: getHeight(50),
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

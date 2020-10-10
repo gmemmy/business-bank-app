@@ -30,6 +30,7 @@ export default function App() {
   }
   return (
     <Store.Provider value={{ ...state, ...getActions(dispatch) }}>
+        <StatusBar style='light' backgroundColor='#042C5C' />
       {state.user.isAuthenticated ? <TabNavigator /> :  <Navigator />}
     </Store.Provider>
   )

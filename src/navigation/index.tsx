@@ -12,6 +12,7 @@ import Login from '../screens/Authentication/Login'
 // Bottom Tab Screens
 import HomeScreen from './home'
 import WalletScreen from './wallet'
+import ProfileScreen from './profile'
 
 // Tab Icons
 const homeActive = require('../../assets/icons/tab/home-active.png')
@@ -93,7 +94,7 @@ export const TabNavigator = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={HomeScreen}
+          component={ProfileScreen}
           options={{
             tabBarIcon: ({ focused }) =>
               focused ? (

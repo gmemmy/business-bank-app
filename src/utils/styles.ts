@@ -46,3 +46,7 @@ export const fontFamily: any = {
   FONT_FAMILY_SEMI_BOLD: 'MavenProSemiBold',
   FONT_FAMILY_BOLD: 'MavenProBold',
 }
+
+export const lineBreak = (text: string) => {
+  return text.split(' ')
+}

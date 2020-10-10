@@ -1,11 +1,20 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
 // COmponents
 import Header from '../../components/TabScreenHeader'
 import colors from '../../utils/colors'
 import { fontFamily, getHeight, getWidth } from '../../utils/styles'
-import { ScrollView } from 'react-native-gesture-handler'
+import ContactCard from '../../components/ContactCard'
+import TransactionCard from '../../components/TransactionSummaryCard'
 
 // Icons
 const addCard = require('../../../assets/icons/add-card.png')
@@ -15,6 +24,8 @@ const downIcon = require('../../../assets/icons/down.png')
 // Images
 const card1 = require('../../../assets/card1.png')
 const card2 = require('../../../assets/card2.png')
+const user1 = require('../../../assets/ricardo.png')
+const user2 = require('../../../assets/josie.png')
 
 const cards = [
   {
@@ -27,53 +38,112 @@ const cards = [
   },
 ]
 
+const contactList = [
+  {
+    id: '0',
+    image: user2,
+    name: 'Josie Marian',
+  },
+  {
+    id: '1',
+    image: user1,
+    name: 'Franco Baresi',
+  },
+  {
+    id: '2',
+    image: user1,
+    name: 'Kalidou Koulibaly',
+  },
+  {
+    id: '3',
+    image: user1,
+    name: 'Memphis Depay',
+  },
+  {
+    id: '4',
+    image: user1,
+    name: 'Zlatan Ibrahimovic',
+  },
+]
+
 const Wallet = () => {
   return (
-    <View style={styles.container}>
-      <Header
-        text="Wallet"
-        icon={addCard}
-        textColor={colors.NAVY_BLUE}
-        iconStyle={{
-          height: getHeight(30),
-          width: getWidth(30),
-          resizeMode: 'contain',
-        }}
-      />
-      <View style={{ height: getHeight(200) }}>
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          contentContainerStyle={styles.cardsListContainer}
-        >
-          {cards.map((card) => (
-            <TouchableOpacity key={card.id}>
-              <Image style={styles.card} source={card.image} />
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+    <>
+      <View style={{ paddingHorizontal: getWidth(20) }}>
+        <Header
+          text="Wallet"
+          icon={addCard}
+          textColor={colors.NAVY_BLUE}
+          iconStyle={{
+            height: getHeight(30),
+            width: getWidth(30),
+            resizeMode: 'contain',
+          }}
+        />
       </View>
-      <View style={styles.transactionInfo}>
-        <View style={styles.infoContainer}>
-          <Image style={styles.arrowIcon} source={upIcon} />
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionDetailsHeader}>Income</Text>
-            <Text style={styles.amount}>₦5,000,000</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <View style={{ height: getHeight(200) }}>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              contentContainerStyle={styles.cardsListContainer}
+            >
+              {cards.map((card) => (
+                <TouchableOpacity key={card.id}>
+                  <Image style={styles.card} source={card.image} />
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
+          </View>
+          <View style={styles.transactionInfo}>
+            <View style={styles.infoContainer}>
+              <Image style={styles.arrowIcon} source={upIcon} />
+              <View style={styles.transactionDetails}>
+                <Text style={styles.transactionDetailsHeader}>Income</Text>
+                <Text style={styles.amount}>₦5,000,000</Text>
+              </View>
+            </View>
+            <View style={styles.infoContainer}>
+              <Image style={styles.arrowIcon} source={downIcon} />
+              <View style={styles.transactionDetails}>
+                <Text style={styles.transactionDetailsHeader}>Expense</Text>
+                <Text style={styles.amount}>₦500,000</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.contactList}>
+            <Text style={styles.contactListHeader}>Send money to</Text>
+            <FlatList
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              contentContainerStyle={{
+                minWidth: getWidth(600),
+                justifyContent: 'space-between',
+                marginTop: getHeight(20),
+              }}
+              data={contactList}
+              renderItem={({ item }) => (
+                <TouchableOpacity>
+                  <ContactCard contact={item} />
+                </TouchableOpacity>
+              )}
+              keyExtractor={(item) => item.id}
+            />
+          </View>
+          <View style={styles.transactionSummary}>
+            <Text style={styles.transactionsHeader}>Transactions</Text>
+            <View style={styles.transactionListContainer}>
+              <TransactionCard />
+              <TransactionCard />
+              <TransactionCard />
+              <TransactionCard />
+              <TransactionCard />
+            </View>
           </View>
         </View>
-        <View style={[styles.infoContainer, { marginLeft: getWidth(40) }]}>
-          <Image style={styles.arrowIcon} source={downIcon} />
-          <View style={styles.transactionDetails}>
-            <Text style={styles.transactionDetailsHeader}>Expense</Text>
-            <Text style={styles.amount}>₦500,000</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.contactList}>
-        <Text>Send money to</Text>
-        <View></View>
-      </View>
-    </View>
+      </ScrollView>
+    </>
   )
 }
 
@@ -97,6 +167,7 @@ const styles = StyleSheet.create({
   transactionInfo: {
     flexDirection: 'row',
     marginTop: getHeight(30),
+    justifyContent: 'space-between',
   },
   infoContainer: {
     flexDirection: 'row',
@@ -123,7 +194,23 @@ const styles = StyleSheet.create({
     fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
   },
   contactList: {
-    marginTop: getHeight(20),
+    marginTop: getHeight(40),
+  },
+  contactListHeader: {
+    color: colors.NAVY_BLUE,
+    fontSize: getHeight(20),
+    fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
+  },
+  transactionSummary: {
+    marginTop: getHeight(30),
+  },
+  transactionsHeader: {
+    color: colors.NAVY_BLUE,
+    fontSize: getHeight(18),
+    fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
+  },
+  transactionListContainer: {
+    paddingBottom: getHeight(10),
   },
 })
 

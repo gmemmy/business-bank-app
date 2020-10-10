@@ -1,20 +1,20 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import WalletScreen from '../screens/Wallet'
+import ProfileScreen from '../screens/Profile'
 
 const Stack = createStackNavigator()
 
-const Wallet = () => {
+const Home = () => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Wallet" component={WalletScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
     </Stack.Navigator>
   )
 }
 
-export default Wallet
+export default ProfileScreen
