@@ -7,14 +7,17 @@ import {
   TouchableOpacity,
   Animated,
   Image,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native'
 import { Modalize } from 'react-native-modalize'
+import { showMessage } from 'react-native-flash-message'
 import { FontAwesome5 } from '@expo/vector-icons'
+import { fontFamily, getHeight, getWidth } from '../../utils/styles'
 
 // Components
 import Header from '../../components/TabScreenHeader'
 import colors from '../../utils/colors'
-import { fontFamily, getHeight, getWidth } from '../../utils/styles'
 import CustomTextInput from '../../components/TextInput'
 import Button from '../../components/Button'
 
@@ -35,37 +38,35 @@ const contacts = [
   },
   {
     id: '2',
-    name: 'Atawodi Emmanuel',
+    name: 'Sean Wagwan',
     avatar: user,
-    username: 'fibonacci',
-    verified: true,
+    username: 'sean',
   },
   {
     id: '3',
-    name: 'Atawodi Emmanuel',
+    name: 'Jermaine Cole',
     avatar: user,
-    username: 'fibonacci',
+    username: 'jcole',
     verified: true,
   },
   {
     id: '4',
-    name: 'Atawodi Emmanuel',
+    name: 'Yemi Alade',
     avatar: user,
-    username: 'fibonacci',
+    username: 'yemi',
     verified: true,
   },
   {
     id: '5',
-    name: 'Atawodi Emmanuel',
+    name: 'Local man',
     avatar: user,
-    username: 'fibonacci',
-    verified: true,
+    username: 'neighbourhood_nuisance',
   },
   {
     id: '6',
-    name: 'Atawodi Emmanuel',
+    name: 'David Adeleke',
     avatar: user,
-    username: 'fibonacci',
+    username: 'davido',
     verified: true,
   },
 ]
@@ -78,15 +79,35 @@ const SendMoney = ({}) => {
   const modalizeRef = useRef<Modalize>(null)
   const animated = useRef(new Animated.Value(0)).current
 
-  const onOpen = () => {
+  const openModal = () => {
     modalizeRef.current?.open()
+    Keyboard.dismiss()
+  }
+
+  const closeModal = () => {
+    modalizeRef.current?.close()
   }
 
   const formatAmount = (amount: any) => {
     return amount.replace(/\d(?=(?:\d{3})+$)/g, '$&,')
   }
 
-  const onSend = () => {}
+  const onSend = () => {
+    closeModal()
+    showMessage({
+      message: `You just sent ₦ ${formatAmount(input)} to ${
+        selectedUser?.username
+      }`,
+      description: 'Funds!!! 💰 💰 💰',
+      type: 'success',
+      animated: true,
+      backgroundColor: colors.SKY_BLUE,
+      color: colors.BLUE,
+      duration: 3000,
+    })
+    setInput('')
+    setIsUserActive(false)
+  }
 
   const renderItem = ({ item }: any) => (
     <TouchableOpacity
@@ -108,113 +129,117 @@ const SendMoney = ({}) => {
   )
 
   return (
-    <View style={styles.container}>
-      <Header textColor={colors.WHITE} text="Send Money">
-        <FontAwesome5 name="money-bill" size={24} color="white" />
-      </Header>
-      <View style={styles.content}>
-        <Text style={styles.availableBalance}>NGN 5,000,000 Available</Text>
-        <View style={styles.inputContainer}>
-          <Text style={styles.nairaSymbol}>₦</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="0.00"
-            keyboardType="numeric"
-            maxLength={7}
-            value={input}
-            onChangeText={(value) => setInput(value)}
-            // autoFocus
-            placeholderTextColor={colors.GRAY}
-          />
-        </View>
-        <TouchableOpacity onPress={onOpen} style={styles.chooseRecipient}>
-          <Text
-            style={{
-              color: colors.NAVY_BLUE,
-              fontSize: getHeight(15),
-              fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
-            }}
-          >
-            Choose Recipient
-          </Text>
-        </TouchableOpacity>
-      </View>
-      {isUserActive ? (
-        <Modalize
-          snapPoint={getHeight(700)}
-          modalHeight={getHeight(750)}
-          HeaderComponent={
-            <TouchableOpacity onPress={() => setIsUserActive(false)}>
-              <Image style={styles.backButton} source={bacButton} />
-            </TouchableOpacity>
-          }
-          panGestureAnimatedValue={animated}
-          ref={modalizeRef}
-          modalStyle={styles.modal}
-        >
-          <View
-            style={{
-              alignItems: 'center',
-              marginTop: getHeight(40),
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}
-          >
-            <View style={styles.avatarContainer}>
-              <Image style={styles.avatar} source={selectedUser.avatar} />
-            </View>
-            <View style={styles.userDetailsContainer}>
-              <Text style={styles.name}>{selectedUser?.name}</Text>
-              <Text style={styles.username}>{selectedUser?.username}</Text>
-            </View>
-            {selectedUser?.verified && (
-              <Image style={styles.verified} source={verified} />
-            )}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <View style={styles.container}>
+        <Header textColor={colors.WHITE} text="Send Money">
+          <FontAwesome5 name="money-bill" size={24} color="white" />
+        </Header>
+        <View style={styles.content}>
+          <Text style={styles.availableBalance}>NGN 5,000,000 Available</Text>
+          <View style={styles.inputContainer}>
+            <Text style={styles.nairaSymbol}>₦</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="0.00"
+              keyboardType="numeric"
+              maxLength={7}
+              value={input}
+              onChangeText={(value) => setInput(value)}
+              // autoFocus
+              placeholderTextColor={colors.GRAY}
+            />
           </View>
-          <View style={styles.selectedAmountContainer}>
-            <Text style={{ color: colors.GRAY, fontSize: getHeight(20) }}>
-              Amount
-            </Text>
+          <TouchableOpacity onPress={openModal} style={styles.chooseRecipient}>
             <Text
               style={{
                 color: colors.NAVY_BLUE,
-                fontSize: getHeight(30),
-                marginTop: getHeight(10),
+                fontSize: getHeight(15),
+                fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
               }}
             >
-              {input.length < 1 ? '₦ 0.00' : `₦${formatAmount(input)}.00`}
+              Choose Recipient
             </Text>
-          </View>
-          <View style={{ marginTop: getHeight(40) }}>
-            <CustomTextInput placeholder="Add a message..." />
-          </View>
-          <View style={styles.sendButtonContainer}>
-            <Button
-              disabled={input === ''}
-              text="Send"
-              onPress={() => console.log('Paid')}
-              borderRadius={50}
-            />
-          </View>
-        </Modalize>
-      ) : (
-        <Modalize
-          HeaderComponent={<Text style={styles.modalHeader}>Your Friends</Text>}
-          snapPoint={getHeight(200)}
-          modalHeight={getHeight(550)}
-          panGestureAnimatedValue={animated}
-          ref={modalizeRef}
-          modalStyle={styles.modal}
-          flatListProps={{
-            data: contacts,
-            renderItem,
-            contentContainerStyle: {
-              justifyContent: 'space-between',
-            },
-          }}
-        />
-      )}
-    </View>
+          </TouchableOpacity>
+        </View>
+        {isUserActive ? (
+          <Modalize
+            snapPoint={getHeight(700)}
+            modalHeight={getHeight(750)}
+            HeaderComponent={
+              <TouchableOpacity onPress={() => setIsUserActive(false)}>
+                <Image style={styles.backButton} source={bacButton} />
+              </TouchableOpacity>
+            }
+            panGestureAnimatedValue={animated}
+            ref={modalizeRef}
+            modalStyle={styles.modal}
+          >
+            <View
+              style={{
+                alignItems: 'flex-start',
+                marginTop: getHeight(40),
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
+              <View style={styles.avatarContainer}>
+                <Image style={styles.avatar} source={selectedUser.avatar} />
+              </View>
+              <View style={styles.userDetailsContainer}>
+                <Text style={styles.name}>{selectedUser?.name}</Text>
+                <Text style={styles.username}>{selectedUser?.username}</Text>
+              </View>
+              {selectedUser?.verified && (
+                <Image style={styles.verified} source={verified} />
+              )}
+            </View>
+            <View style={styles.selectedAmountContainer}>
+              <Text style={{ color: colors.GRAY, fontSize: getHeight(20) }}>
+                Amount
+              </Text>
+              <Text
+                style={{
+                  color: colors.NAVY_BLUE,
+                  fontSize: getHeight(30),
+                  marginTop: getHeight(10),
+                }}
+              >
+                {input.length < 1 ? '₦ 0.00' : `₦${formatAmount(input)}.00`}
+              </Text>
+            </View>
+            <View style={{ marginTop: getHeight(40) }}>
+              <CustomTextInput placeholder="Add a message..." />
+            </View>
+            <View style={styles.sendButtonContainer}>
+              <Button
+                disabled={input === ''}
+                text="Send"
+                onPress={() => onSend()}
+                borderRadius={50}
+              />
+            </View>
+          </Modalize>
+        ) : (
+          <Modalize
+            HeaderComponent={
+              <Text style={styles.modalHeader}>Your Friends</Text>
+            }
+            snapPoint={getHeight(200)}
+            modalHeight={getHeight(550)}
+            panGestureAnimatedValue={animated}
+            ref={modalizeRef}
+            modalStyle={styles.modal}
+            flatListProps={{
+              data: contacts,
+              renderItem,
+              contentContainerStyle: {
+                justifyContent: 'space-between',
+              },
+            }}
+          />
+        )}
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
@@ -273,13 +298,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: getHeight(40),
     height: getHeight(40),
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   verified: {
     height: getHeight(19),
     width: getWidth(19),
     resizeMode: 'contain',
-    marginLeft: getWidth(40),
+    marginLeft: getWidth(10),
+    marginTop: getHeight(4),
   },
   name: {
     fontSize: getHeight(16),

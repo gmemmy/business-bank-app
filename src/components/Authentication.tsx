@@ -45,9 +45,6 @@ const Authentication = ({ type, navigation, children }: any) => {
           keyboardShouldPersistTaps="handled"
         >
           <View style={styles.header}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Image source={backButton} style={styles.backButton} />
-            </TouchableOpacity>
             {type === 'login' && (
               <Text style={styles.headerText}>Welcome, Login</Text>
             )}
@@ -73,6 +70,7 @@ const Authentication = ({ type, navigation, children }: any) => {
               icon={google}
               text="Google"
               textColor={colors.NAVY_BLUE}
+              disabled={false}
             />
           </View>
           <View style={styles.textInputContainer}>{children}</View>

@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, useReducer } from 'react';
-import { View, AsyncStorage } from 'react-native';
+import { View, AsyncStorage } from 'react-native'
+import FlashMessage from "react-native-flash-message"
 import * as Font from 'expo-font'
 import { Navigator, TabNavigator } from './src/navigation/'
 import Store from './src/context/store'
@@ -45,8 +46,9 @@ export default function App() {
   }
   return (
     <Store.Provider value={{ ...state, ...getActions(dispatch) }}>
-        <StatusBar style='light' backgroundColor='#042C5C' />
-      {(validated || state.user.isAuthenticated) ? <TabNavigator /> :  <Navigator />}
+      <StatusBar style='light' backgroundColor='#042C5C' />
+      {(validated || state?.user?.isAuthenticated) ? <TabNavigator /> :  <Navigator />}
+      <FlashMessage position="top" />
     </Store.Provider>
   )
 }

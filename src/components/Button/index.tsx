@@ -30,11 +30,15 @@ const Button = ({
       disabled={disabled}
       style={[
         {
-          backgroundColor: color ? color : colors.BLUE,
+          backgroundColor: color
+            ? color
+            : disabled
+            ? colors.LIGHT_GRAY
+            : colors.BLUE,
           borderRadius: borderRadius ? getWidth(borderRadius) : getWidth(5),
           height: height ? getHeight(height) : getHeight(48),
           width: width ? getWidth(width) : getWidth(156),
-          borderColor: borderColor,
+          borderColor: disabled ? colors.LIGHT_GRAY : borderColor,
           borderWidth: StyleSheet.hairlineWidth + 0.3,
         },
         styles.container,
