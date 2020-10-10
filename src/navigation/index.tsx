@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image, StyleSheet } from 'react-native'
+import { Image, StyleSheet, View, Dimensions } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
@@ -24,6 +24,8 @@ const walletInactive = require('../../assets/icons/tab/wallet-inactive.png')
 const profileActive = require('../../assets/icons/tab/profile-active.png')
 const profileInactive = require('../../assets/icons/tab/profile-inactive.png')
 const plus = require('../../assets/icons/tab/plus.png')
+import { Feather } from '@expo/vector-icons'
+import colors from '../utils/colors'
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -32,8 +34,8 @@ export const Navigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="OnBoarding" headerMode="none">
-        <Stack.Screen name="RegisterScreen" component={Register} />
         <Stack.Screen name="LogInScreen" component={Login} />
+        <Stack.Screen name="RegisterScreen" component={Register} />
       </Stack.Navigator>
     </NavigationContainer>
   )
@@ -73,9 +75,13 @@ export const TabNavigator = () => {
           options={{
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <Image source={plus} style={styles.plus} />
+                <View style={styles.sendButtonContainer}>
+                  <Feather name="send" size={24} color="white" />
+                </View>
               ) : (
-                <Image source={plus} style={styles.plus} />
+                <View style={styles.sendButtonContainer}>
+                  <Feather name="send" size={24} color="white" />
+                </View>
               ),
             tabBarLabel: '',
           }}
@@ -120,5 +126,17 @@ const styles = StyleSheet.create({
     height: getHeight(48),
     resizeMode: 'contain',
     marginBottom: getHeight(10),
+  },
+  sendButtonContainer: {
+    height: getHeight(48),
+    width: getWidth(48),
+    resizeMode: 'contain',
+    backgroundColor: colors.BLUE,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius:
+      Math.round(
+        Dimensions.get('window').width + Dimensions.get('window').height
+      ) / 2,
   },
 })

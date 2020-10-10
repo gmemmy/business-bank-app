@@ -29,11 +29,11 @@ const user2 = require('../../../assets/josie.png')
 
 const cards = [
   {
-    id: '0',
+    id: '1',
     image: card1,
   },
   {
-    id: '1',
+    id: '2',
     image: card2,
   },
 ]
@@ -113,7 +113,7 @@ const Wallet = () => {
             </View>
           </View>
           <View style={styles.contactList}>
-            <Text style={styles.contactListHeader}>Send money to</Text>
+            <Text style={styles.contactListHeader}>Recent beneficiaries</Text>
             <FlatList
               showsHorizontalScrollIndicator={false}
               horizontal

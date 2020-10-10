@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add @types/react-native-simple-radio-button
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add @types/react-native-input-validator
 
 PATH: 
   /usr/local/bin:/Users/emmanuelatawodi/.nvm/versions/node/v14.6.0/bin:/usr/local/opt/node@10/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/Users/emmanuelatawodi/Library/Android/sdk/platform-tools:/usr/local/opt/node@10/bin
@@ -14,7 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2freact-native-simple-radio-button: Not found
+  Error: https://registry.yarnpkg.com/@types%2freact-native-input-validator: Not found
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66987:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
       at Request.emit (events.js:315:20)
@@ -60,6 +60,7 @@ npm manifest:
       "react-dom": "16.13.1",
       "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
       "react-native-gesture-handler": "~1.7.0",
+      "react-native-input-validator": "^1.0.10",
       "react-native-reanimated": "~1.13.0",
       "react-native-responsive-screen": "^1.4.1",
       "react-native-safe-area-context": "3.1.4",
@@ -4805,6 +4806,13 @@ Lockfile:
       invariant "^2.2.4"
       prop-types "^15.7.2"
   
+  react-native-input-validator@^1.0.10:
+    version "1.0.10"
+    resolved "https://registry.yarnpkg.com/react-native-input-validator/-/react-native-input-validator-1.0.10.tgz#af277b85acae48c4dc91e82e76004a00b76a0124"
+    integrity sha512-nuv29H6JlYYeTW3TwUkMvJAQCbkUgznWyl3oc0GklrSKximXFq4jTDpV7q2bQ8if+2h3jqOMkyPobyGDtIHc9A==
+    dependencies:
+      validator "^13.0.0"
+  
   react-native-iphone-x-helper@^1.2.1:
     version "1.2.1"
     resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
@@ -5798,6 +5806,11 @@ Lockfile:
     version "7.0.3"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
     integrity sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
+  
+  validator@^13.0.0:
+    version "13.1.17"
+    resolved "https://registry.yarnpkg.com/validator/-/validator-13.1.17.tgz#ad677736950adddd3c37209484a6b2e0966579ad"
+    integrity sha512-zL5QBoemJ3jYFb2/j38y7ljhwYGXVLUp8H6W1nVxadnAOvUOytec+L7BHh1oBQ82/TzWXHd+GSaxUWp4lROkLg==
   
   vary@~1.1.2:
     version "1.1.2"

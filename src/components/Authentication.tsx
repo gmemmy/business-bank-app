@@ -41,11 +41,11 @@ const Authentication = ({ type, navigation, children }: any) => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Image source={backButton} style={styles.backButton} />
             </TouchableOpacity>
-            {type === 'register' && (
-              <Text style={styles.headerText}>Hi, Please Signup</Text>
-            )}
             {type === 'login' && (
               <Text style={styles.headerText}>Welcome, Login</Text>
+            )}
+            {type === 'register' && (
+              <Text style={styles.headerText}>Hi, Please Signup</Text>
             )}
           </View>
           <View style={styles.socialMediaButtonsContainer}>

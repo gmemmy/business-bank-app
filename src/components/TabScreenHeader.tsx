@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import colors from '../utils/colors'
 import { fontFamily, getHeight, getWidth } from '../utils/styles'
+import store from '../context/store'
 
-const Header = ({ text, icon, textColor, iconStyle }: any) => {
+const Header = ({ text, icon, textColor, iconStyle, type }: any) => {
+  const context = useContext<any>(store)
   return (
     <View style={styles.container}>
       <Text
@@ -11,9 +13,18 @@ const Header = ({ text, icon, textColor, iconStyle }: any) => {
       >
         {text}
       </Text>
-      <TouchableOpacity>
-        <Image style={[iconStyle ? iconStyle : styles.icon]} source={icon} />
-      </TouchableOpacity>
+      {type === 'logout' ? (
+        <TouchableOpacity
+          onPress={() => context.setIsAuthenticated(false)}
+          style={styles.logoutButton}
+        >
+          <Text style={styles.logoutText}>Logout</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity>
+          <Image style={[iconStyle ? iconStyle : styles.icon]} source={icon} />
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
@@ -32,6 +43,19 @@ const styles = StyleSheet.create({
   text: {
     fontSize: getHeight(20),
     fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
+  },
+  logoutButton: {
+    width: getWidth(100),
+    height: getHeight(30),
+    backgroundColor: colors.RED,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: getWidth(5),
+  },
+  logoutText: {
+    color: colors.WHITE,
+    fontFamily: fontFamily.FONT_FAMILY_MEDIUM,
+    fontSize: getHeight(16),
   },
 })
 
