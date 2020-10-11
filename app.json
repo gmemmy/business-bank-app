@@ -19,9 +19,14 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "com.gmemmy.business_app",
+      "versionCode": 1
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "A basic app with the simulative feature to send money to friends.",
+    "githubUrl": "https://github.com/gmemmy/business-bank-app"
   }
 }

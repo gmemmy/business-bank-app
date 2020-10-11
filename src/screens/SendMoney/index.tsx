@@ -145,7 +145,7 @@ const SendMoney = ({}) => {
               maxLength={7}
               value={input}
               onChangeText={(value) => setInput(value)}
-              // autoFocus
+              autoFocus
               placeholderTextColor={colors.GRAY}
             />
           </View>
@@ -235,6 +235,7 @@ const SendMoney = ({}) => {
               contentContainerStyle: {
                 justifyContent: 'space-between',
               },
+              showsVerticalScrollIndicator: false,
             }}
           />
         )}
