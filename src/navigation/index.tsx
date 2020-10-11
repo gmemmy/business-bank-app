@@ -61,32 +61,16 @@ export const TabNavigator = () => {
           }}
         />
         <Tab.Screen
-          name="Expenses"
-          component={HomeScreen}
-          options={{
-            tabBarIcon: ({ focused }) =>
-              focused ? (
-                <Image source={expensesActive} style={styles.icon} />
-              ) : (
-                <Image source={expensesInactive} style={styles.icon} />
-              ),
-          }}
-        />
-        <Tab.Screen
           name="SendMoney"
           component={SendMoneyScreen}
           options={{
             tabBarIcon: ({ focused }) =>
               focused ? (
-                <View style={styles.sendButtonContainer}>
-                  <Feather name="send" size={24} color="white" />
-                </View>
+                <Feather name="send" size={24} color={colors.BLUE} />
               ) : (
-                <View style={styles.sendButtonContainer}>
-                  <Feather name="send" size={24} color="white" />
-                </View>
+                <Feather name="send" size={24} color={colors.GRAY} />
               ),
-            tabBarLabel: '',
+            tabBarLabel: 'Send Money',
           }}
         />
         <Tab.Screen

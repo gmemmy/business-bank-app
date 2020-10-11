@@ -123,13 +123,7 @@ const Wallet = ({ navigation }: any) => {
                 marginTop: getHeight(20),
               }}
               data={contactList}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('SendMoney')}
-                >
-                  <ContactCard contact={item} />
-                </TouchableOpacity>
-              )}
+              renderItem={({ item }) => <ContactCard contact={item} />}
               keyExtractor={(item) => item.id}
             />
           </View>
